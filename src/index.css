@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0a0a0f;
+  --color-foreground: #e4e4e7;
+  --color-card: #18181b;
+  --color-card-foreground: #e4e4e7;
+  --color-primary: #6366f1;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #27272a;
+  --color-secondary-foreground: #a1a1aa;
+  --color-muted: #27272a;
+  --color-muted-foreground: #71717a;
+  --color-border: #3f3f46;
+  --color-destructive: #ef4444;
+  --color-accent: #6366f1;
+  --color-ring: #6366f1;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-background text-foreground antialiased;
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Leaflet overrides for dark theme */
+.leaflet-container {
+  background: #1a1a2e !important;
+}
+.leaflet-tile-pane {
+  filter: brightness(0.7) contrast(1.1) saturate(0.8);
+}
+.leaflet-popup-content-wrapper {
+  @apply bg-card text-card-foreground rounded-lg;
+  border: 1px solid var(--color-border);
+}
+.leaflet-popup-tip {
+  background: var(--color-card);
+}
+.leaflet-control-zoom a {
+  background: var(--color-card) !important;
+  color: var(--color-foreground) !important;
+  border-color: var(--color-border) !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-muted-foreground);
+  border-radius: 9999px;
+  opacity: 0.3;
+}

@@ -1,0 +1,47 @@
+import { NavLink } from "react-router";
+import { Globe, CloudSun, Telescope } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+const navItems = [
+  { to: "/earthquakes", icon: Globe, label: "Earthquakes" },
+  { to: "/weather", icon: CloudSun, label: "Weather" },
+  { to: "/apod", icon: Telescope, label: "APOD" },
+];
+
+export function Sidebar() {
+  return (
+    <aside className="w-64 border-r border-border bg-card flex flex-col shrink-0 max-md:hidden">
+      <div className="p-6 border-b border-border">
+        <h1 className="text-lg font-bold tracking-tight text-foreground flex items-center gap-2">
+          <Globe className="h-5 w-5 text-primary" />
+          Earth & Sky
+        </h1>
+        <p className="text-xs text-muted-foreground mt-1">Real-time Monitor</p>
+      </div>
+      <nav className="flex-1 p-3 space-y-1">
+        {navItems.map(({ to, icon: Icon, label }) => (
+          <NavLink
+            key={to}
+            to={to}
+            className={({ isActive }) =>
+              cn(
+                "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
+                isActive
+                  ? "bg-primary/10 text-primary"
+                  : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+              )
+            }
+          >
+            <Icon className="h-4 w-4" />
+            {label}
+          </NavLink>
+        ))}
+      </nav>
+      <div className="p-4 border-t border-border">
+        <p className="text-xs text-muted-foreground text-center">
+          Data from USGS, Open-Meteo, NASA
+        </p>
+      </div>
+    </aside>
+  );
+}
