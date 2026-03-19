@@ -70,7 +70,7 @@ export function WeatherCard({ city }: Props) {
         </div>
       </div>
 
-      {data.daily && <ForecastChart daily={data.daily} />}
+      {data.daily && <ForecastChart daily={data.daily} cityId={city.name} />}
     </div>
   );
 }

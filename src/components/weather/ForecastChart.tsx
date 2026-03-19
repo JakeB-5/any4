@@ -10,10 +10,12 @@ import type { WeatherResponse } from "@/types/weather";
 
 interface Props {
   daily: WeatherResponse["daily"];
+  cityId?: string;
 }
 
-export function ForecastChart({ daily }: Props) {
-  const data = daily.time.map((date, i) => ({
+export function ForecastChart({ daily, cityId = "default" }: Props) {
+  const gradientId = `tempGrad-${cityId}`;
+  const data = daily.time.map((date: string, i: number) => ({
     date: new Date(date).toLocaleDateString("en", { weekday: "short" }),
     max: Math.round(daily.temperature_2m_max[i]),
     min: Math.round(daily.temperature_2m_min[i]),
@@ -24,7 +26,7 @@ export function ForecastChart({ daily }: Props) {
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart data={data} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
           <defs>
-            <linearGradient id="tempGrad" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#6366f1" stopOpacity={0.3} />
               <stop offset="100%" stopColor="#6366f1" stopOpacity={0} />
             </linearGradient>
@@ -54,7 +56,7 @@ export function ForecastChart({ daily }: Props) {
             type="monotone"
             dataKey="max"
             stroke="#6366f1"
-            fill="url(#tempGrad)"
+            fill={`url(#${gradientId})`}
             strokeWidth={2}
             name="High"
           />
